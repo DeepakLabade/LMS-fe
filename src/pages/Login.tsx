@@ -21,7 +21,7 @@ const Login = () => {
       const response = await axios.post("http://localhost:3000/api/v1/user/login", {
         email,
         password
-      })
+      }, {withCredentials: true})
       console.log("user login succesfully ", response)
       setLoading(false)
       navigate("/")
