@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleRegister() {
     if (!username || !email || !password) {
@@ -21,6 +23,7 @@ const Register = () => {
         password
       })
       console.log("successfully registered: ", response )
+      navigate("/login")
       setLoading(false)
     } catch (error) {
       console.log("registration error: ", error)

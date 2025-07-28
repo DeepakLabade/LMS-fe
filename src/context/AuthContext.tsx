@@ -5,12 +5,15 @@ interface User {
   _id: String;
   username: String;
   email: String;
+  photoUrl: String;
+  role: String;
   // enrolledCourse: any,
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean
+  setUser: any
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -36,7 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, setUser }}>{children}</AuthContext.Provider>
   );
 };
 

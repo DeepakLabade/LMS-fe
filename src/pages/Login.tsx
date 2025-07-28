@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import axios from "axios";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -10,6 +11,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const {setUser} = useAuth()
   
   async function handleLogin() {
     if (!email || !password) {
@@ -24,6 +26,8 @@ const Login = () => {
       }, {withCredentials: true})
       console.log("user login succesfully ", response)
       setLoading(false)
+      const res = await axios.get("http://localhost:3000/api/v1/user/me", {withCredentials: true})
+      setUser(res.data)
       navigate("/")
     } catch (error) {
       console.log("login error: ", error)
